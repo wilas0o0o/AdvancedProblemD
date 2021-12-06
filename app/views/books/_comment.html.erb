@@ -14,7 +14,7 @@
     </tr>
   <% end %>
 </table>
-<%= render "layouts/errors",obj: @book.book_comments %>
+<%= render "layouts/errors",obj: book_comment %>
 <%= form_with model:[@book,@book_comment], local:true do |f| %>
   <%= f.text_area :comment,size: "90x5" %><br>
   <%= f.submit "送信" %>
