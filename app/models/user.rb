@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :books,dependent: :destroy
+  attachment :profile_image, destroy: false
 	has_many :favorites,dependent: :destroy
 	has_many :book_comments,dependent: :destroy
 	
@@ -23,8 +24,6 @@ class User < ApplicationRecord
   #自分がフォローしているユーザーの一覧画面で使う
   has_many :followings,through: :active_relationships,source: :followed
   #active_relationshipsを経由してfollowedを持ってくる
-  
-  attachment :profile_image, destroy: false
 
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
