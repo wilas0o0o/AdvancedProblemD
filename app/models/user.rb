@@ -5,25 +5,26 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :books,dependent: :destroy
-  attachment :profile_image, destroy: false
 	has_many :favorites,dependent: :destroy
 	has_many :book_comments,dependent: :destroy
-	
-	#フォローしているユーザーのリレーション
-	has_many :active_relationships,class_name: "Relationship",foreign_key: "follower_id",dependent: :destroy
-	#Relationshipテーブルのfollower_id(自分がフォローしているユーザのid)と関連付ける
 	
 	#フォローされているユーザーのリレーション
 	has_many :passive_relationships,class_name: "Relationship",foreign_key: "followed_id",dependent: :destroy
 	#Relationshipテーブルのfollowed_id(自分がフォローされているユーザーのid)と関連付ける
 	
+	#フォローしているユーザーのリレーション
+	has_many :active_relationships,class_name: "Relationship",foreign_key: "follower_id",dependent: :destroy
+	#Relationshipテーブルのfollower_id(自分がフォローしているユーザのid)と関連付ける
+	
+  #自分がフォローされているユーザーの一覧画面で使う
+  has_many :followers,through: :passive_relationships,source: :follower
+  #passive_relationshipsを経由してfollowerを持ってくる
+  
   #自分がフォローしているユーザーの一覧画面で使う
   has_many :followings,through: :active_relationships,source: :followed
   #active_relationshipsを経由してfollowedを持ってくる
   
-  #自分がフォローされているユーザーの一覧画面で使う
-  has_many :followers,through: :passive_relationships,source: :follower
-  #passive_relationshipsを経由してfollowerを持ってくる
+  attachment :profile_image, destroy: false
 
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
