@@ -8,7 +8,10 @@ class User < ApplicationRecord
   attachment :profile_image, destroy: false
   has_many :favorites,dependent: :destroy
   has_many :book_comments,dependent: :destroy
-	
+  
+  validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
+  validates :introduction, length: {maximum: 50}
+
 	#フォローされているユーザーのリレーション
 	has_many :passive_relationships,class_name: "Relationship",foreign_key: "followed_id",dependent: :destroy
 	#Relationshipテーブルのfollowed_id(自分がフォローされているユーザーのid)と関連付ける
@@ -25,8 +28,6 @@ class User < ApplicationRecord
   has_many :followings,through: :active_relationships,source: :followed
   #active_relationshipsを経由してfollowedを持ってくる
 
-  validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
-  validates :introduction, length: {maximum: 50}
   
   def follow(user_id)
     active_relationships.create(followed_id: user_id)
