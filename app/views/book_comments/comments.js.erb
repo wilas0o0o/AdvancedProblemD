@@ -1,3 +1,5 @@
 $(".comment-table").html("<%= j(render "books/comment-table",book: @book,book_comment: @book_comment)%>");
 
+$(".comment-count").html("<%= j(render "books/comment-count",book: @book) %>")
+
 $(".comment-form").val("");
