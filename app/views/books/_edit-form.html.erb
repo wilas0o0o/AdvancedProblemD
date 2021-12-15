@@ -1,4 +1,4 @@
-<%= form_with model:book,local: true do |f| %>
+<%= form_with model:@book,local: true do |f| %>
   <div class="form-group">
     <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control book_title' %>
@@ -18,13 +18,12 @@
       starOff: '<%= asset_path('star-off.png') %>',
       starOn: '<%= asset_path('star-on.png') %>',
       starHalf: '<%= asset_path('star-half.png') %>',
-      scoreName: 'book[rate]',
       half: true,
+      readOnly: true,
+      score: <%= @book.rate %>
     });
   </script>
   <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
   </div>
 <% end %>
-
-
