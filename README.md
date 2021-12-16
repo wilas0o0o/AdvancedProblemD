@@ -5,3 +5,4 @@
 
 * 応用課題8d 参考記事: https://qiita.com/kurawo___D/items/7604f709a9ec28808540
                      : https://techacademy.jp/magazine/7727
+* 応用課題9d 参考記事: https://qiita.com/yuki_chrono/items/ce9f6e6ea9be0d438989
