@@ -8,13 +8,13 @@ class Book < ApplicationRecord
 	validates :title, presence: true
 	validates :body, presence: true, length: {maximum: 200}
 	validates :category, presence: true
-	
+
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
   end
-  
-  def self.search_for(content)
-    Book.where(category: content)
+
+  def Book.search(search_word)
+    Book.where(["category LIKE ?","#{search_word}"])
   end
-  
+
 end
